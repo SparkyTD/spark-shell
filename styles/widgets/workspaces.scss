@@ -1,0 +1,31 @@
+@use "../variables" as *;
+
+.widget-workspaces {
+  box.dot {
+    border-radius: 30px;
+    background: transparent;
+    border: 2px solid $fg-color;
+    min-width: 8px;
+    min-height: 8px;
+    transition: all 300ms ease;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+
+    &.active {
+      background: $fg-color;
+      min-width: 30px;
+      transition: all 300ms ease;
+    }
+
+    &.disabled {
+      min-width: 0;
+      min-height: 0;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      opacity: 0;
+    }
+  }
+}

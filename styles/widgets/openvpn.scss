@@ -1,0 +1,25 @@
+@use "../variables" as *;
+
+.widget-openvpn {
+  box > label {
+    margin-left: 6px;
+  }
+
+  popover {
+    .option-row {
+      margin-top: 16px;
+    }
+
+    .active {
+      background: $bg-highlight-color;
+    }
+
+    .inactive {
+      background: $bg-highlight-color;
+    }
+
+    > contents {
+      padding: 16px 22px 16px 16px;
+    }
+  }
+}

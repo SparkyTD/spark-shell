@@ -1,0 +1,10 @@
+@use "bar";
+@use "launcher";
+@use "sass:color";
+@use "variables" as *;
+
+* {
+  font-family: "SF Pro Display", sans-serif;
+  font-weight: 600;
+  text-shadow: 0 2px 3px color.adjust($bg-color, $alpha: -0.8);
+}

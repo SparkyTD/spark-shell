@@ -1,0 +1,82 @@
+@use "variables" as *;
+
+$alpha: 0.6;
+
+window.Launcher {
+  background: transparent;
+
+  box.root {
+    border-radius: 12px;
+    // border: 1px solid darken($bg-color, 40%);
+
+    box.inner-root {
+      background: rgba($bg-color, $alpha);
+      border-radius: 12px;
+      border: 2px solid rgba(lighten($bg-color, 10%), $alpha);
+      border-top: 2px solid rgba(lighten($bg-color, 26%), $alpha);
+      padding: 20px;
+
+      .widget-separator {
+        margin: 0 -20px 16px -20px;
+      }
+
+      box.list-root {
+        label.category-header {
+          margin-left: 8px;
+          color: lighten($fg-inactive-color, 14%);
+          font-weight: bold;
+        }
+
+        button {
+          padding: 0;
+          margin: 0;
+          outline: 0;
+          border: none;
+          background: none;
+
+          box.item {
+            border-radius: 6px;
+            min-height: 48px;
+
+            > image {
+              margin: 0 12px;
+            }
+
+            > label.title {
+              color: $fg-color;
+            }
+
+            > label.title.warn {
+              color: #ff8000;
+              font-weight: bold;
+            }
+
+            > label.description {
+              color: lighten($fg-inactive-color, 14%);
+              margin-left: 12px;
+            }
+          }
+        }
+
+        box.item.selected {
+          background: rgba(255, 255, 255, 0.06);
+        }
+
+        box.item:hover:not(.selected) {
+          background: rgba(255, 255, 255, 0.03);
+        }
+      }
+
+      entry {
+        background: transparent;
+        border: none;
+        margin-bottom: 12px;
+        outline-width: 0;
+
+        > *:nth-child(1) > *:nth-child(1) {
+          color: lighten($fg-inactive-color, 14%);
+        }
+      }
+    }
+  }
+}

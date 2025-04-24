@@ -1,0 +1,31 @@
+@use "../variables" as *;
+
+.widget-audio {
+  margin: 0 0;
+
+  box > image {
+    margin: 0 5px;
+  }
+
+  box > image:first-child {
+    margin-left: -3px;
+  }
+
+  box > image:nth-child(2) {
+    margin-right: -4px;
+  }
+
+  popover {
+    .endpoint {
+      color: $fg-inactive-color;
+    }
+
+    .endpoint.default {
+      color: $fg-color;
+    }
+
+    > contents {
+      padding: 16px;
+    }
+  }
+}

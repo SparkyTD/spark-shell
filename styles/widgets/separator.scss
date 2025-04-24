@@ -1,0 +1,13 @@
+@use "../variables" as *;
+
+.widget-separator.vertical {
+  min-width: 2px;
+  margin: 6px 10px;
+  background: $bg-highlight-color;
+}
+
+.widget-separator.horizontal {
+  min-height: 2px;
+  margin: 16px 0;
+  background: $bg-highlight-color;
+}
