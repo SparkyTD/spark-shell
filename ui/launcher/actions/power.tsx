@@ -1,5 +1,6 @@
 import {ActionCallback, ActionProvider, ActionResult, OptionalWidget} from "../Launcher";
 import {exec, Variable} from "astal";
+import {truncateText} from "../../../utils/text-utils";
 
 export class PowerActionProvider extends ActionProvider {
     matchInput(_: string): boolean {
@@ -10,10 +11,12 @@ export class PowerActionProvider extends ActionProvider {
         let options = [
             new PowerActionResult(PowerAction.Shutdown),
             new PowerActionResult(PowerAction.Reboot),
+            new PowerActionResult(PowerAction.Sleep),
         ];
 
         return options.filter(o =>
             o.action.toString().toLowerCase().includes(query.toLowerCase())
+                || "power".includes(query.toLowerCase())
         );
     }
 }
@@ -21,6 +24,7 @@ export class PowerActionProvider extends ActionProvider {
 enum PowerAction {
     Reboot = "Reboot",
     Shutdown = "Shutdown",
+    Sleep = "Sleep",
 }
 
 class PowerActionResult extends ActionResult {
@@ -42,6 +46,8 @@ class PowerActionResult extends ActionResult {
             return "system-reboot-symbolic";
         } else if (this.action === PowerAction.Shutdown) {
             return "system-shutdown-symbolic";
+        } else if (this.action === PowerAction.Sleep) {
+            return "weather-clear-night-symbolic";
         }
 
         return null;
@@ -53,11 +59,12 @@ class PowerActionResult extends ActionResult {
                 this.confirm.set(true);
                 return false;
             } else {
-                console.log("PowerAction:", this.action.toString());
                 if (this.action === PowerAction.Reboot) {
                     exec(["reboot"]);
                 } else if (this.action === PowerAction.Shutdown) {
                     exec(["shutdown", "now"]);
+                } else if (this.action === PowerAction.Sleep) {
+                    exec(["systemctl", "suspend"]);
                 }
                 return true;
             }
@@ -72,12 +79,13 @@ class PowerActionResult extends ActionResult {
         return [
             this.getIconName() != null ? <image iconName={this.getIconName()!}/> : null,
             this.confirm().as(confirm => {
-                if (!confirm) {
-                    return <label cssClasses={["title"]}>{this.getTitle()}</label>
-                } else {
-                    return <label cssClasses={["title", "warn"]}>{`Press Enter again to ${this.getTitle()}`}</label>
-                }
-            })
+                return confirm
+                    ? <label cssClasses={["title", "warn"]}>{`Press Enter again to ${this.getTitle()}`}</label>
+                    : <label cssClasses={["title"]}>{this.getTitle()}</label>
+            }),
+            <label cssClasses={["description"]}>
+                {this.getDescription()}
+            </label>,
         ];
     }
 }

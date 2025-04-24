@@ -7,13 +7,12 @@ window.Launcher {
 
   box.root {
     border-radius: 12px;
-    // border: 1px solid darken($bg-color, 40%);
 
     box.inner-root {
       background: rgba($bg-color, $alpha);
       border-radius: 12px;
       border: 2px solid rgba(lighten($bg-color, 10%), $alpha);
-      border-top: 2px solid rgba(lighten($bg-color, 26%), $alpha);
+      border-top: 2px solid rgba(lighten($bg-color, 24%), $alpha);
       padding: 20px;
 
       .widget-separator {

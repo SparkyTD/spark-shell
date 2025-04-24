@@ -1,7 +1,6 @@
 import {App, Astal, Gdk, Gtk} from "astal/gtk4"
 import Hyprland from "gi://AstalHyprland";
 import {Variable, exec, Binding} from "astal";
-import {truncateText} from "../../utils/text-utils";
 import Separator from "../bar/Separator";
 
 export default class Launcher {
@@ -79,10 +78,13 @@ export default class Launcher {
                                             lastCategoryName = result.getCategoryName();
                                         }
 
-                                        elements.push(<button onClicked={() => {
-                                            this.selectedIndex.set(index);
-                                            this.keyPressed(Gdk.KEY_Return);
-                                        }}>
+                                        elements.push(<button
+                                            onClicked={() => {
+                                                this.selectedIndex.set(index);
+                                                this.keyPressed(Gdk.KEY_Return);
+                                            }}
+                                            cssClasses={this.selectedIndex()
+                                                .as(i => i == index ? ["selected"] : [])}>
                                             <box cssClasses={this.selectedIndex()
                                                 .as(i => i == index ? ["item", "selected"] : ["item"])}
                                                  cursor={Gdk.Cursor.new_from_name("pointer", null)}>
@@ -131,13 +133,14 @@ export default class Launcher {
         }
 
         let selectedIndex = this.selectedIndex.get();
-        if (key == Gdk.KEY_Down && selectedIndex < this.filteredResultList.get().length) {
-            this.selectedIndex.set(selectedIndex + 1);
+        let itemCount = this.filteredResultList.get().length;
+        if (key == Gdk.KEY_Down) {
+            this.selectedIndex.set(selectedIndex + 1 < itemCount ? selectedIndex + 1 : 0);
             this.ensureScrollAdjustment();
         }
 
-        if (key == Gdk.KEY_Up && selectedIndex > 0) {
-            this.selectedIndex.set(selectedIndex - 1);
+        if (key == Gdk.KEY_Up) {
+            this.selectedIndex.set(selectedIndex > 0 ? selectedIndex - 1 : itemCount - 1);
             this.ensureScrollAdjustment();
         }
 
@@ -222,15 +225,7 @@ export abstract class ActionResult {
 
     abstract getAction(): ActionCallback | null;
 
-    getWidgetContents(): OptionalWidget[] {
-        return [
-            this.getIconName() != null ? <image iconName={this.getIconName()!}/> : null,
-            <label cssClasses={["title"]}>{this.getTitle()}</label>,
-            <label cssClasses={["description"]}>
-                {truncateText(this.getDescription(), 80)}
-            </label>
-        ];
-    }
+    abstract getWidgetContents(): OptionalWidget[];
 
     destroy() {
     }

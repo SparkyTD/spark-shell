@@ -1,5 +1,7 @@
-import {ActionCallback, ActionProvider, ActionResult} from "../Launcher";
+import {ActionCallback, ActionProvider, ActionResult, OptionalWidget} from "../Launcher";
 import Apps from "gi://AstalApps"
+import {App, Astal, Gdk, Gtk} from "astal/gtk4"
+import {truncateText} from "../../../utils/text-utils";
 
 export class ApplicationProvider extends ActionProvider {
     matchInput(_: string): boolean {
@@ -44,7 +46,10 @@ class ApplicationResult extends ActionResult {
     }
 
     getIconName(): string | null {
-        return this.application.iconName;
+        let iconName = this.application.iconName;
+        if (!iconName || iconName.length == 0)
+            return "missing-symbolic";
+        return iconName;
     }
 
     getCategoryName(): string {
@@ -60,5 +65,26 @@ class ApplicationResult extends ActionResult {
             this.application.launch();
             return true;
         };
+    }
+
+    getWidgetContents(): OptionalWidget[] {
+        return [
+            this.getAppIcon(),
+            <label cssClasses={["title"]}>{this.getTitle()}</label>,
+            <label cssClasses={["description"]}>
+                {truncateText(this.getDescription(), 80)}
+            </label>
+        ];
+    }
+
+    getAppIcon(): OptionalWidget {
+        let iconName = this.getIconName() ?? "missing-symbolic";
+        if (iconName == null)
+            return null;
+
+        if (iconName.startsWith("/"))
+            return <image file={this.getIconName()!}/>
+        else
+            return <image iconName={this.getIconName()!}/>
     }
 }
