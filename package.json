@@ -1,6 +1,8 @@
 {
     "name": "astal-shell",
     "dependencies": {
-        "astal": "/usr/share/astal/gjs"
+        "astal": "/usr/share/astal/gjs",
+        "ulid": "^3.0.0",
+        "uuid": "^11.1.0"
     }
 }

@@ -9,9 +9,13 @@ import {CalculatorProvider, testMain} from "./ui/launcher/actions/calculator";
 import {CurrencyExchangeProvider} from "./ui/launcher/actions/currency";
 import {PowerActionProvider} from "./ui/launcher/actions/power";
 import {exit} from "system";
+import {GeneratorActionProvider} from "./ui/launcher/actions/generator";
+import initPRNG from "./utils/prng";
 
 //testMain();
 //exit(0);
+
+initPRNG();
 
 let stylesManager = new HotReloadStylesManager("./styles/init.scss");
 stylesManager.watchInputFiles();
@@ -28,6 +32,7 @@ App.start({
         launcher.addActionProvider(new CalculatorProvider());
         launcher.addActionProvider(new CurrencyExchangeProvider());
         launcher.addActionProvider(new PowerActionProvider());
+        launcher.addActionProvider(new GeneratorActionProvider());
         // launcher.addActionProvider(new SystemMonitorProvider()); // TODO
 
         const monitors = App.get_monitors();

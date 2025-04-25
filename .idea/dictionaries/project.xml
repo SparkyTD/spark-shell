@@ -7,6 +7,9 @@
       <w>ignorealpha</w>
       <w>layerrule</w>
       <w>ovpnd</w>
+      <w>ulid</w>
+      <w>urandom</w>
+      <w>uuidv</w>
     </words>
   </dictionary>
 </component>
