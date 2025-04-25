@@ -23,7 +23,6 @@ window.Bar {
     border-top: 1.5px solid $bg-highlight-color;
     padding: 0 8px;
 
-    //background: rgba(0, 0, 0, 0.1);
     background: $bg-color;
   }
 
@@ -39,7 +38,7 @@ popover.background {
   contents {
     border-radius: 10px;
     border: 1.5px $bg-highlight-color solid;
-    background: $bg-color;
+    background: rgba($bg-color, 0.8);
   }
 
   arrow {
