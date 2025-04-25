@@ -2,6 +2,7 @@ import {App, Astal, Gdk, Gtk} from "astal/gtk4"
 import Hyprland from "gi://AstalHyprland";
 import {Variable, exec, Binding} from "astal";
 import Separator from "../bar/Separator";
+import {AppConfig} from "../../config";
 
 export default class Launcher {
     private readonly isOpen: Variable<boolean>;
@@ -39,11 +40,14 @@ export default class Launcher {
             application={App}
             widthRequest={600}
             heightRequest={540}
+            namespace="astal-launcher-gtk4"
             layer={Astal.Layer.OVERLAY}
             onKeyPressed={(_, key) => this.keyPressed(key)}
             setup={self => {
-                exec(["hyprctl", "-r", "--", "keyword", "layerrule", `blur,${self.namespace}`]);
-                exec(["hyprctl", "-r", "--", "keyword", "layerrule", "ignorealpha", `0.0,${self.namespace}`]);
+                if (AppConfig.launcher.enableHyprlandBlur) {
+                    exec(["hyprctl", "-r", "--", "keyword", "layerrule", `blur,${self.namespace}`]);
+                    exec(["hyprctl", "-r", "--", "keyword", "layerrule", "ignorealpha", `0.0,${self.namespace}`]);
+                }
             }}>
             <box cssClasses={["root"]} vertical>
                 <box cssClasses={["inner-root"]} vertical>

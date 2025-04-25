@@ -1,9 +1,9 @@
-import {Variable, GLib, bind} from "astal"
+import {bind} from "astal"
 import Hyprland from "gi://AstalHyprland"
 
 export default function TitleWidget() {
-    const hypr = Hyprland.get_default()
-    const focused = bind(hypr, "focusedClient")
+    const hyprland = Hyprland.get_default()
+    const focused = bind(hyprland, "focusedClient")
 
     return <box
         visible={focused.as(Boolean)}>

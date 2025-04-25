@@ -5,15 +5,12 @@ import HotReloadStylesManager from "./utils/scss-reload";
 import {InstanceManager, MultiInstanceMode} from "./utils/instance-manager";
 import SocketManager from "./utils/socket-manager";
 import {ApplicationProvider} from "./ui/launcher/actions/application";
-import {CalculatorProvider, testMain} from "./ui/launcher/actions/calculator";
+import {CalculatorProvider} from "./ui/launcher/actions/calculator";
 import {CurrencyExchangeProvider} from "./ui/launcher/actions/currency";
 import {PowerActionProvider} from "./ui/launcher/actions/power";
-import {exit} from "system";
 import {GeneratorActionProvider} from "./ui/launcher/actions/generator";
+import {AppConfig} from "./config";
 import initPRNG from "./utils/prng";
-
-//testMain();
-//exit(0);
 
 initPRNG();
 
@@ -50,5 +47,8 @@ App.start({
 
 function canRunOnMonitor(monitor: Gdk.Monitor) {
     let connector = monitor.get_connector();
-    return connector == "DP-2" || connector == "HDMI-A-2x";
+    let model = monitor.get_model();
+
+    let monitors = AppConfig.bar.monitors;
+    return monitors.some(m => !!m.connector && m.connector == connector || !!m.model && m.model == model);
 }

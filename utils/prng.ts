@@ -1,4 +1,4 @@
-import {exec, GLib, Gio} from "astal";
+import {GLib} from "astal";
 
 export default function initPRNG() {
     (window as any)["crypto"] = {
