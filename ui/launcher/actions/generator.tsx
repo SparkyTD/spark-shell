@@ -4,30 +4,38 @@ import {Gdk} from "astal/gtk4";
 import {ulid} from "ulid";
 
 export class GeneratorActionProvider extends ActionProvider {
-    matchInput(input: string): boolean {
-        return input.toLowerCase().startsWith("guid")
-            || input.toLowerCase().startsWith("uuid")
-            || input.toLowerCase().startsWith("ulid");
+    queryResults(query: string): ActionResult[] | null {
+        let type = this.parseIdType(query.split(' ')[0]);
+        if (type == null)
+            return null;
+
+        return [new GeneratorActionResult(type)];
     }
 
-    queryResults(query: string): ActionResult[] {
-        if (query.toLowerCase().startsWith("guid") || query.toLowerCase().startsWith("uuid")) {
-            return [new GeneratorActionResult("UUIDv4", GLib.uuid_string_random())]
-        } else if (query.toLowerCase().startsWith("ulid")) {
-            return [new GeneratorActionResult("ULID", ulid())]
+    parseIdType(text: string): IdType | null {
+        if (text.toLowerCase() == "uuid" || text.toLowerCase() == "guid") {
+            return IdType.UUID;
+        } else if (text.toLowerCase() == "ulid") {
+            return IdType.ULID;
         }
-        return [];
+
+        return null;
     }
 }
 
+enum IdType {
+    UUID = "UUIDv4",
+    ULID = "ULID",
+}
+
 class GeneratorActionResult extends ActionResult {
-    private readonly type: string;
+    private readonly type: IdType;
     private readonly result: string;
 
-    constructor(type: string, result: string) {
+    constructor(type: IdType) {
         super();
         this.type = type;
-        this.result = result;
+        this.result = type == IdType.UUID ? GLib.uuid_string_random() : ulid();
     }
 
     getAction(): ActionCallback | null {

@@ -6,22 +6,25 @@ window.Launcher {
   background: transparent;
 
   box.root {
-    border-radius: 12px;
+    border-radius: 14px;
+    border: 1.4px solid rgba(black, 0.6);
 
     box.inner-root {
       background: rgba($bg-color, $alpha);
-      border-radius: 12px;
-      border: 2px solid rgba(lighten($bg-color, 10%), $alpha);
-      border-top: 2px solid rgba(lighten($bg-color, 24%), $alpha);
+      border-radius: 14px;
+      border: 1px solid rgba(white, 0.1);
+      border-top: 2px solid rgba(white, 0.2);
       padding: 20px;
 
       .widget-separator {
         margin: 0 -20px 16px -20px;
+        background: rgba(lighten($bg-color, 10%), $alpha);
       }
 
       box.list-root {
         label.category-header {
           margin-left: 8px;
+          margin-top: 8px;
           color: lighten($fg-inactive-color, 14%);
           font-weight: bold;
         }

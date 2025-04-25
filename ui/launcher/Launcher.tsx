@@ -123,8 +123,9 @@ export default class Launcher {
         this.selectedIndex.set(0);
 
         let allResults = this.actionProviders
-            .filter(provider => provider.matchInput(text))
-            .flatMap(provider => provider.queryResults(text));
+            .map(provider => provider.queryResults(text))
+            .filter(resultSet => resultSet != null)
+            .flatMap(resultSet => resultSet);
 
         this.filteredResultList.get().forEach((result) => result.destroy());
         this.filteredResultList.set(allResults);
@@ -204,9 +205,7 @@ export default class Launcher {
 }
 
 export abstract class ActionProvider {
-    abstract matchInput(input: string): boolean;
-
-    abstract queryResults(query: string): ActionResult[];
+    abstract queryResults(query: string): ActionResult[] | null;
 }
 
 export type ActionCallback = () => boolean;

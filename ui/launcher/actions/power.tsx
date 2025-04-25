@@ -1,13 +1,8 @@
 import {ActionCallback, ActionProvider, ActionResult, OptionalWidget} from "../Launcher";
 import {exec, Variable} from "astal";
-import {truncateText} from "../../../utils/text-utils";
 
 export class PowerActionProvider extends ActionProvider {
-    matchInput(_: string): boolean {
-        return true;
-    }
-
-    queryResults(query: string): ActionResult[] {
+    queryResults(query: string): ActionResult[] | null {
         let options = [
             new PowerActionResult(PowerAction.Shutdown),
             new PowerActionResult(PowerAction.Reboot),

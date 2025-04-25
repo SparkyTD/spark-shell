@@ -1,14 +1,9 @@
 import {ActionCallback, ActionProvider, ActionResult, OptionalWidget} from "../Launcher";
 import Apps from "gi://AstalApps"
-import {App, Astal, Gdk, Gtk} from "astal/gtk4"
 import {truncateText} from "../../../utils/text-utils";
 
 export class ApplicationProvider extends ActionProvider {
-    matchInput(_: string): boolean {
-        return true;
-    }
-
-    queryResults(query: string): ActionResult[] {
+    queryResults(query: string): ActionResult[] | null {
         let apps = new Apps.Apps();
         return apps.list
             .filter(app => this.applicationMatches(app, query))

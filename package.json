@@ -2,6 +2,7 @@
     "name": "astal-shell",
     "dependencies": {
         "astal": "/usr/share/astal/gjs",
+        "math-expression-evaluator": "^2.0.6",
         "ulid": "^3.0.0",
         "uuid": "^11.1.0"
     }

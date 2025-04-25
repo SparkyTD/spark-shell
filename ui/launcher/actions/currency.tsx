@@ -5,11 +5,10 @@ import Soup from "gi://Soup?version=3.0";
 export class CurrencyExchangeProvider extends ActionProvider {
     private static readonly REGEX = /^\s*(?<value>[\d.]+)\s*(?<from>[a-zA-Z]{3})\s*[tT][oO]\s*(?<to>[a-zA-Z]{3})\s*$/;
 
-    matchInput(input: string): boolean {
-        return CurrencyExchangeProvider.REGEX.test(input);
-    }
+    queryResults(query: string): ActionResult[] | null {
+        if (!CurrencyExchangeProvider.REGEX.test(query))
+            return null;
 
-    queryResults(query: string): ActionResult[] {
         let result = CurrencyExchangeProvider.REGEX.exec(query);
         if (!result || result.length != 4) {
             return [];
