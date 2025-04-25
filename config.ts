@@ -4,10 +4,13 @@ export const AppConfig: Config = {
     bar: {
         monitors: [
             {model: "DELL G2724D"},
-            {model: "LG TV SSCR2"},
+            {model: "LG TV SSCR2-"},
         ],
         widgets: {
-            time: {format: "%I:%M %p - %a %b %d"}
+            datetime: {
+                dateTimeFormat: "%I:%M %p - %a %b %d",
+                timeFormat: "%I:%M:%S %p",
+            }
         },
         enableHyprlandBlur: true,
     },

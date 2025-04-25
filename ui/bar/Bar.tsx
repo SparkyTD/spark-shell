@@ -1,6 +1,6 @@
 import {App, Astal, Gdk} from "astal/gtk4"
 
-import TimeWidget from "./widgets/time/TimeWidget";
+import DateTimeWidget from "./widgets/datetime/DateTimeWidget";
 import TitleWidget from "./widgets/title/TitleWidget";
 import TrayWidget from "./widgets/tray/TrayWidget";
 import AudioWidget from "./widgets/audio/AudioWidget";
@@ -10,17 +10,13 @@ import Separator from "./Separator";
 import {exec} from "astal";
 import {AppConfig} from "../../config";
 
-export default function Bar(gdkmonitor: Gdk.Monitor) {
+export default function Bar(monitor: Gdk.Monitor) {
     const {TOP, LEFT, RIGHT} = Astal.WindowAnchor
-    console.log(gdkmonitor.get_model(), gdkmonitor.get_connector());
-
-    //const drawerVisible = Variable(false);
-    //SystemDrawer(gdkmonitor, drawerVisible());
 
     return <window
         visible={true}
         cssClasses={["Bar"]}
-        gdkmonitor={gdkmonitor}
+        gdkmonitor={monitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         anchor={TOP | LEFT | RIGHT}
         application={App}
@@ -37,7 +33,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                 <box cssClasses={["bar-background"]} hexpand={true}/>
                 <centerbox type="overlay measure" cssClasses={["content-wrapper"]} hexpand={true}>
                     <box>
-                        <TimeWidget/>
+                        <DateTimeWidget/>
                         <Separator/>
                         <WorkspacesWidget/>
                     </box>

@@ -3,6 +3,7 @@
 @use "widgets/audio";
 @use "widgets/openvpn";
 @use "widgets/workspaces";
+@use "widgets/datetime";
 @use "widgets/separator";
 
 window.Bar {
@@ -38,7 +39,7 @@ popover.background {
   contents {
     border-radius: 10px;
     border: 1.5px $bg-highlight-color solid;
-    background: rgba($bg-color, 0.8);
+    background: rgba($bg-color, 0.9);
   }
 
   arrow {

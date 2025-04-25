@@ -4,8 +4,9 @@ type MonitorFilter = {
 };
 
 type WidgetsConfig = {
-    time: {
-        format: string,
+    datetime: {
+        dateTimeFormat: string,
+        timeFormat: string,
     }
 };
 
