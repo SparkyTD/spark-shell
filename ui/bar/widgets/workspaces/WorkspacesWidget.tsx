@@ -1,6 +1,15 @@
 import {bind} from "astal";
-import {Gtk} from "astal/gtk4";
+import {Gdk, Gtk} from "astal/gtk4";
 import Hyprland from "gi://AstalHyprland";
+
+function setupIconController(box: Gtk.Box, workspaceId: number, hyprland: Hyprland.Hyprland) {
+    let clickController = new Gtk.GestureClick({button: 0});
+    clickController.connect('pressed', () => {
+        const virtualDesktopId = workspaceId + 1;
+        hyprland.dispatch("vdesk", `${virtualDesktopId}`);
+    });
+    box.add_controller(clickController);
+}
 
 export default function WorkspacesWidget() {
     const hyprland = Hyprland.get_default();
@@ -13,7 +22,9 @@ export default function WorkspacesWidget() {
             return <box heightRequest={height}
                         valign={Gtk.Align.CENTER}
                         cssClasses={bind(hyprland, 'focusedWorkspace')
-                            .as(workspace => getDotClasses(workspace.id, monitorCount, id))}>
+                            .as(workspace => getDotClasses(workspace.id, monitorCount, id))}
+                        cursor={Gdk.Cursor.new_from_name("pointer", null)}
+                        setup={self => setupIconController(self, id, hyprland)}>
                 <box widthRequest={height}>
                 </box>
             </box>;
