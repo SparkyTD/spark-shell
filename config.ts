@@ -16,5 +16,8 @@ export const AppConfig: Config = {
     },
     launcher: {
         enableHyprlandBlur: true,
+    },
+    defaults: {
+        terminal: "kitty",
     }
 };

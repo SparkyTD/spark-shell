@@ -6,7 +6,6 @@ export default function KeyboardLayoutWidget() {
     const layoutName = Variable("");
 
     hyprland.connect('keyboard-layout', (_, keyboard, lang) => {
-        console.log(keyboard, lang);
         layoutName.set(lang);
     });
 

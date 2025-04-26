@@ -2,12 +2,19 @@
   <dictionary name="project">
     <words>
       <w>astal</w>
+      <w>decameter</w>
+      <w>dekagram</w>
+      <w>dekaliter</w>
+      <w>dekameter</w>
+      <w>hectoliter</w>
       <w>hyprctl</w>
       <w>hyprland</w>
       <w>ignorealpha</w>
       <w>layerrule</w>
       <w>mexp</w>
+      <w>nanoliter</w>
       <w>ovpnd</w>
+      <w>sqmi</w>
       <w>ulid</w>
       <w>urandom</w>
       <w>uuidv</w>

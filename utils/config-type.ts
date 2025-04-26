@@ -18,5 +18,8 @@ export type Config = {
     },
     launcher: {
         enableHyprlandBlur: boolean,
+    },
+    defaults: {
+        terminal: string,
     }
 };

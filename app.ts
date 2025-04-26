@@ -11,6 +11,8 @@ import {PowerActionProvider} from "./ui/launcher/actions/power";
 import {GeneratorActionProvider} from "./ui/launcher/actions/generator";
 import {AppConfig} from "./config";
 import initPRNG from "./utils/prng";
+import {SshActionProvider} from "./ui/launcher/actions/ssh";
+import {ConverterActionProvider} from "./ui/launcher/actions/converter";
 
 initPRNG();
 
@@ -30,6 +32,8 @@ App.start({
         launcher.addActionProvider(new CurrencyExchangeProvider());
         launcher.addActionProvider(new PowerActionProvider());
         launcher.addActionProvider(new GeneratorActionProvider());
+        launcher.addActionProvider(new SshActionProvider());
+        launcher.addActionProvider(new ConverterActionProvider());
         // launcher.addActionProvider(new SystemMonitorProvider()); // TODO
 
         const monitors = App.get_monitors();
