@@ -10,6 +10,7 @@ import Separator from "./Separator";
 import {exec} from "astal";
 import {AppConfig} from "../../config";
 import ConnectivityWidget from "./widgets/connectivity/ConnectivityWidget";
+import KeyboardLayoutWidget from "./widgets/keyboard/KeyboardLayoutWidget";
 
 export default function Bar(monitor: Gdk.Monitor) {
     const {TOP, LEFT, RIGHT} = Astal.WindowAnchor
@@ -37,6 +38,8 @@ export default function Bar(monitor: Gdk.Monitor) {
                         <DateTimeWidget/>
                         <Separator/>
                         <WorkspacesWidget/>
+                        <Separator/>
+                        <KeyboardLayoutWidget/>
                     </box>
                     <box>
                         <TitleWidget/>

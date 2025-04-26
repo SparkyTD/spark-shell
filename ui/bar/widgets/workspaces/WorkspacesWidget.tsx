@@ -23,6 +23,8 @@ export default function WorkspacesWidget() {
                         valign={Gtk.Align.CENTER}
                         cssClasses={bind(hyprland, 'focusedWorkspace')
                             .as(workspace => getDotClasses(workspace.id, monitorCount, id))}
+                        visible={bind(hyprland, 'focusedWorkspace')
+                            .as(workspace => getDotClasses(workspace.id, monitorCount, id).length > 0)}
                         cursor={Gdk.Cursor.new_from_name("pointer", null)}
                         setup={self => setupIconController(self, id, hyprland)}>
                 <box widthRequest={height}>
