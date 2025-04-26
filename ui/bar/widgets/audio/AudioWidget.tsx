@@ -1,7 +1,6 @@
 import {bind} from "astal";
-import {Gtk} from "astal/gtk4";
+import {Gtk, Gdk} from "astal/gtk4";
 import Wp from "gi://AstalWp";
-import {Gdk} from "astal/gtk4";
 import AudioPopup from "./AudioPopup";
 
 function setupIconController(image: Gtk.Image, endpoint: Wp.Endpoint) {
@@ -25,7 +24,8 @@ export default function AudioWidget() {
     const speaker = audio.audio.defaultSpeaker!;
     const microphone = audio.audio.defaultMicrophone!;
 
-    return <menubutton cssClasses={["widget-audio"]} cursor={Gdk.Cursor.new_from_name("pointer", null)}>
+    return <menubutton cssClasses={["widget-audio", "bar-button"]}
+                       cursor={Gdk.Cursor.new_from_name("pointer", null)}>
         <box>
             <image iconName={bind(speaker, "volumeIcon")} setup={self => setupIconController(self, speaker)}/>
             <image iconName={bind(microphone, "volumeIcon")} setup={self => setupIconController(self, microphone)}/>

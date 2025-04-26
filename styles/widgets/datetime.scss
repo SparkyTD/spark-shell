@@ -1,38 +1,5 @@
 @use "../variables" as *;
 
-calendar {
-  background: none;
-  border: none;
-  color: $fg-color;
-
-  > :first-child {
-    border: none;
-  }
-
-  > :last-child {
-    label {
-      color: $fg-color;
-      outline: none;
-      background: none;
-      box-shadow: none;
-      font-weight: normal;
-      border: none;
-    }
-
-    label.day-name {
-      font-weight: bolder;
-    }
-
-    label.day-number.other-month {
-      color: $fg-inactive-color;
-    }
-
-    label.day-number.today {
-      font-weight: bolder;
-    }
-  }
-}
-
 .widget-datetime {
   popover {
     .time-title {
@@ -44,6 +11,42 @@ calendar {
 
     > contents {
       padding: 16px;
+
+      calendar {
+        background: none;
+        border: none;
+        color: $fg-color;
+
+        > :first-child {
+          border: none;
+        }
+
+        > :last-child {
+          label {
+            color: $fg-color;
+            outline: none;
+            background: none;
+            box-shadow: none;
+            font-weight: normal;
+            border: none;
+          }
+
+          label.day-name {
+            font-weight: bolder;
+          }
+
+          label.day-number.other-month {
+            color: $fg-inactive-color;
+          }
+
+          label.day-number.today {
+            font-weight: bolder;
+            background: $fg-color;
+            border-radius: 40px;
+            color: rgba($bg-color, 1.0);
+          }
+        }
+      }
     }
   }
 }

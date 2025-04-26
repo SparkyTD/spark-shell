@@ -1,4 +1,4 @@
-import {Variable, GLib, bind} from "astal"
+import {bind} from "astal"
 import Tray from "gi://AstalTray?version=0.1";
 
 export default function TrayWidget () {
@@ -8,6 +8,7 @@ export default function TrayWidget () {
         items.map((item) => {
             return (
                 <menubutton
+                    cssClasses={["bar-button"]}
                     tooltipMarkup={bind(item, "tooltipMarkup")}
                     setup={(self) => {
                         self.insert_action_group("dbusmenu", item.actionGroup);

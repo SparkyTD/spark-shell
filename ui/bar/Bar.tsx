@@ -9,6 +9,7 @@ import WorkspacesWidget from "./widgets/workspaces/WorkspacesWidget";
 import Separator from "./Separator";
 import {exec} from "astal";
 import {AppConfig} from "../../config";
+import ConnectivityWidget from "./widgets/connectivity/ConnectivityWidget";
 
 export default function Bar(monitor: Gdk.Monitor) {
     const {TOP, LEFT, RIGHT} = Astal.WindowAnchor
@@ -42,6 +43,8 @@ export default function Bar(monitor: Gdk.Monitor) {
                     </box>
                     <box>
                         <OpenVPNWidget/>
+                        <Separator/>
+                        <ConnectivityWidget/>
                         <Separator/>
                         <AudioWidget/>
                         <Separator/>

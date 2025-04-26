@@ -1,0 +1,79 @@
+@use "../variables" as *;
+
+.widget-connectivity {
+  margin: 0 0;
+
+  box > image {
+    margin: 0 5px;
+  }
+
+  box > image:first-child {
+    margin-left: -2px;
+  }
+
+  box > image:nth-last-child(1) {
+    margin-right: -0px;
+  }
+
+  box > image.bt {
+    margin-right: -4px;
+  }
+
+  popover {
+    > contents {
+      padding: 16px;
+
+      .ethernet > .content {
+        > box > image {
+          margin-right: 18px;
+        }
+
+        > box > box > box > label {
+          font-weight: bold;
+        }
+
+        > box > box > label {
+          color: $fg-inactive-color
+        }
+      }
+
+      .wireless > .content {
+        > box > button > image {
+          margin-top: -12px;
+        }
+
+        .connection-row {
+          margin-bottom: 12px;
+
+          image {
+            margin-right: 18px;
+          }
+
+          label.ssid {
+            color: $fg-inactive-color;
+          }
+
+          label.ssid.active {
+            color: $fg-color;
+            font-weight: bold;
+          }
+
+          .button {
+            background: $bg-highlight-color;
+            color: white;
+          }
+
+          entry {
+            border: none;
+            margin-top: 12px;
+            outline-width: 0;
+
+            > *:nth-child(1) > *:nth-child(1) {
+              color: lighten($fg-inactive-color, 14%);
+            }
+          }
+        }
+      }
+    }
+  }
+}

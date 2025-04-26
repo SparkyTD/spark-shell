@@ -26,6 +26,13 @@
 
     > contents {
       padding: 16px;
+
+      button {
+        background: none;
+        border-radius: 8px;
+        padding: 2px 6px;
+        margin: 0;
+      }
     }
   }
 }

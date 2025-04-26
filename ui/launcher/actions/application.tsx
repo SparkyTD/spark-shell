@@ -20,6 +20,9 @@ export class ApplicationProvider extends ActionProvider {
         if (!!app.description && app.description.toLowerCase().includes(keyword.toLowerCase()))
             return true;
 
+        if (!!app.executable && app.executable.toLowerCase().includes(keyword.toLowerCase()))
+            return true;
+
         return false;
     }
 }

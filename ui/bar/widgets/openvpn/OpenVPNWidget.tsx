@@ -10,18 +10,18 @@ export default function OpenVPNWidget() {
 
     const getSessionName = (session: Session) => {
         if (!session)
-            return "Disconnected";
+            return "";
 
         return session.config.name;
     }
 
     const getSessionIcon = (session: Session) => {
         if (!session || session.status === Status.Stopped) {
-            return "mintupdate-error";
+            return "network-vpn-disabled-symbolic";
         } else if (session.status === Status.Running) {
-            return "mintupdate-up-to-date";
+            return "network-vpn-symbolic";
         } else {
-            return "mintupdate-checking";
+            return "network-vpn-acquiring-symbolic";
         }
     };
 
@@ -30,10 +30,13 @@ export default function OpenVPNWidget() {
         availableConfigs.set(configs!);
     });
 
-    return <menubutton cssClasses={["widget-openvpn"]} cursor={Gdk.Cursor.new_from_name("pointer", null)}>
+    return <menubutton cssClasses={["widget-openvpn", "bar-button"]}
+                       cursor={Gdk.Cursor.new_from_name("pointer", null)}>
         <box orientation={Gtk.Orientation.HORIZONTAL}>
             <image iconName={client.activeSession().as(s => getSessionIcon(s!))}/>
-            <label>{client.activeSession().as(s => getSessionName(s!))}</label>
+            <label visible={client.activeSession().as(Boolean)}>
+                {client.activeSession().as(s => getSessionName(s!))}
+            </label>
         </box>
 
         <OpenVPNPopup client={client} availableConfigs={availableConfigs}/>

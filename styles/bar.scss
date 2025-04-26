@@ -4,6 +4,7 @@
 @use "widgets/openvpn";
 @use "widgets/workspaces";
 @use "widgets/datetime";
+@use "widgets/connectivity";
 @use "widgets/separator";
 
 window.Bar {
@@ -27,11 +28,15 @@ window.Bar {
     background: $bg-color;
   }
 
-  button {
+  .bar-button > button {
     background: none;
     border-radius: 8px;
     padding: 2px 6px;
     margin: 0;
+  }
+
+  button {
+    padding: 2px 6px;
   }
 }
 
