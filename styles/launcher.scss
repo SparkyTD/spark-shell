@@ -55,6 +55,10 @@ window.Launcher {
 
             > label.description {
               color: lighten($fg-inactive-color, 14%);
+              margin-left: 6px;
+            }
+
+            > label:nth-child(1) {
               margin-left: 12px;
             }
           }

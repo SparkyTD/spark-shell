@@ -3,6 +3,7 @@
     "dependencies": {
         "astal": "/usr/share/astal/gjs",
         "math-expression-evaluator": "^2.0.6",
+        "ts-pattern": "^5.7.0",
         "ulid": "^3.0.0",
         "uuid": "^11.1.0"
     }

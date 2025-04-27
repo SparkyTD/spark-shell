@@ -1,7 +1,7 @@
 import {ActionCallback, ActionProvider, ActionResult, OptionalWidget} from "../Launcher";
 
 export class ConverterActionProvider extends ActionProvider {
-    static readonly REGEX = /^(?<value>[.,]\d+|\d+[.,]?(?:\d+)?)\s*(?<from>[\w\/]+)\s+to\s+(?<to>[\w\/]+)$/i;
+    static readonly REGEX = /^(?<value>[.,]\d+|\d+[.,]?(?:\d+)?)\s*(?<from>[\w"'\/]+)\s+to\s+(?<to>[\w\/]+)$/i;
 
     queryResults(query: string): ActionResult[] | null {
         let matches = ConverterActionProvider.REGEX.exec(query);
