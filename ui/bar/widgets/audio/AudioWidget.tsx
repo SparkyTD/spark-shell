@@ -27,11 +27,12 @@ export default function AudioWidget() {
     return <menubutton cssClasses={["widget-audio", "bar-button"]}
                        cursor={Gdk.Cursor.new_from_name("pointer", null)}>
         <box>
-            <image iconName={bind(speaker, "volumeIcon")} setup={self => setupIconController(self, speaker)}/>
-            <image iconName={bind(microphone, "volumeIcon")} setup={self => setupIconController(self, microphone)}/>
-            <label>{bind(audio.audio, 'defaultMicrophone').as(m => m.description)}</label>
+            <image iconName={bind(speaker, "volumeIcon")} setup={self => setupIconController(self, speaker)}
+                   tooltipText={bind(speaker, "description")}/>
+            <image iconName={bind(microphone, "volumeIcon")} setup={self => setupIconController(self, microphone)}
+                   tooltipText={bind(microphone, "description")}/>
         </box>
 
-        <AudioPopup/>
+        <AudioPopup audio={audio.audio} speaker={speaker} microphone={microphone}/>
     </menubutton>
 }

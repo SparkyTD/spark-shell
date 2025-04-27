@@ -54,10 +54,13 @@ function EndpointSelector({allEndpoints}: Params) {
     </box>
 }
 
-export default function AudioPopup() {
-    const audio = Wp.get_default()!
-    const speaker = audio.audio.defaultSpeaker!;
-    const microphone = audio.audio.defaultMicrophone!;
+type PopupParams = {
+    audio: Wp.Audio,
+    speaker: Wp.Endpoint,
+    microphone: Wp.Endpoint,
+}
+
+export default function AudioPopup({audio, speaker, microphone}: PopupParams) {
 
     return <popover>
         <box widthRequest={300} orientation={Gtk.Orientation.VERTICAL}>
@@ -69,14 +72,14 @@ export default function AudioPopup() {
 
             <label cssClasses={["title"]} halign={Gtk.Align.START}>Playback Devices</label>
             <EndpointSelector endpoint={speaker}
-                              allEndpoints={bind(audio.audio, 'speakers')}
+                              allEndpoints={bind(audio, 'speakers')}
                               type={'speaker'}/>
 
             <Separator orientation={'horizontal'}/>
 
             <label cssClasses={["title"]} halign={Gtk.Align.START}>Input Devices</label>
             <EndpointSelector endpoint={microphone}
-                              allEndpoints={bind(audio.audio, 'microphones')}
+                              allEndpoints={bind(audio, 'microphones')}
                               type={'microphone'}/>
         </box>
     </popover>
