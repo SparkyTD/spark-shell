@@ -15,6 +15,7 @@ import {SshActionProvider} from "./ui/launcher/actions/ssh";
 import {ConverterActionProvider} from "./ui/launcher/actions/converter";
 import DateTimeActionProvider from "./ui/launcher/actions/datetime";
 import JetBrainsActionProvider from "./ui/launcher/actions/jetbrains";
+import IpAddressActionProvider from "./ui/launcher/actions/ip";
 
 initPRNG();
 
@@ -38,6 +39,7 @@ App.start({
         launcher.addActionProvider(new ConverterActionProvider());
         launcher.addActionProvider(new DateTimeActionProvider());
         launcher.addActionProvider(new JetBrainsActionProvider());
+        launcher.addActionProvider(new IpAddressActionProvider());
         // launcher.addActionProvider(new SystemMonitorProvider()); // TODO
 
         const monitors = App.get_monitors();
