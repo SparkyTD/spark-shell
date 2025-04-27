@@ -40,7 +40,7 @@ class ApplicationResult extends ActionResult {
     }
 
     getDescription(): string | null {
-        return this.application.description;
+        return this.application.iconName;
     }
 
     getIconName(): string | null {

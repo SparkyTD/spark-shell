@@ -200,12 +200,16 @@ export default class Launcher {
 
     public hide() {
         this.filteredResultList.get().forEach((result) => result.destroy());
+        this.actionProviders.forEach(provider => provider.destroy());
         this.isOpen.set(false);
     }
 }
 
 export abstract class ActionProvider {
     abstract queryResults(query: string): ActionResult[] | null;
+
+    destroy() {
+    }
 }
 
 export type ActionCallback = () => boolean;
