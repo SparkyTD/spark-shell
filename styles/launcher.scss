@@ -44,22 +44,30 @@ window.Launcher {
               margin: 0 12px;
             }
 
-            > label.title {
+            label.title {
               color: $fg-color;
             }
 
-            > label.title.warn {
+            label.title.warn {
               color: #ff8000;
               font-weight: bold;
             }
 
-            > label.description {
+            label.description {
               color: lighten($fg-inactive-color, 14%);
               margin-left: 6px;
             }
 
             > label:nth-child(1) {
               margin-left: 12px;
+            }
+
+            revealer.open {
+              padding: 12px;
+
+              box > box > box > label {
+                margin-bottom: 6px;
+              }
             }
           }
         }
@@ -110,6 +118,17 @@ window.Launcher {
           background-position: 0 0;
         }
       }
+    }
+
+    box.footer {
+      margin-top: 16px;
+    }
+
+    box.shortcut > label {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      margin-left: 6px;
+      padding: 4px 6px;
     }
   }
 }

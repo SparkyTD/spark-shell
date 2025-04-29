@@ -1,6 +1,6 @@
 ## Launcher
 - [ ] docker manager
-- [ ] process list w/ kill function
+- [x] process list w/ kill function
 - [ ] find open ports
 - [x] show 'my ip' (local, wan)
 - [x] jetbrains project manager

@@ -80,6 +80,9 @@ export default class Launcher {
 
                                 let controller = new Gtk.EventControllerKey({propagationPhase: Gtk.PropagationPhase.CAPTURE});
                                 controller.connect('key-pressed', (_event, key) => {
+                                    if (this.handleSelectedItemKeyPress(key))
+                                        return;
+
                                     if (key == Gdk.KEY_BackSpace && self.text === "") {
                                         this.subActionProvider.set(null);
                                         this.searchTextChanged("");
@@ -194,7 +197,19 @@ export default class Launcher {
         }
     }
 
+    handleSelectedItemKeyPress(key: number): boolean {
+        let selectedItem = this.filteredResultList.get()[this.selectedIndex.get()];
+        if (!!selectedItem && selectedItem.result.handleKeyPress(key)) {
+            return true;
+        }
+
+        return false;
+    }
+
     keyPressed(key: number) {
+        if (this.handleSelectedItemKeyPress(key))
+            return;
+
         if (key == Gdk.KEY_Escape) {
             this.hide();
         }
@@ -337,6 +352,10 @@ export abstract class ActionResult {
 
     getCustomSortOrder(): number {
         return 0;
+    }
+
+    handleKeyPress(key: number): boolean {
+        return false;
     }
 
     abstract getAction(): ActionCallback | AsyncActionProvider | null;
