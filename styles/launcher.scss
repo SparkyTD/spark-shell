@@ -73,14 +73,41 @@ window.Launcher {
         }
       }
 
-      entry {
+      .header-row > entry {
         background: transparent;
         border: none;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
         outline-width: 0;
 
         > *:nth-child(1) > *:nth-child(1) {
           color: lighten($fg-inactive-color, 14%);
+        }
+      }
+
+      .header-row > button {
+        margin-bottom: 16px;
+        margin-right: 12px;
+
+        outline-width: 0;
+      }
+
+      .widget-separator.loading {
+        background: linear-gradient(90deg,
+                transparent 0%,
+                #3498db 25%,
+                #2ecc71 50%,
+                #3498db 75%,
+                transparent 100%);
+        background-size: 200% 100%;
+        animation: wave-loading 1.5s infinite linear;
+      }
+
+      @keyframes wave-loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: 0 0;
         }
       }
     }
