@@ -14,11 +14,16 @@ export default class JetBrainsActionProvider extends ActionProvider {
         }
 
         if (!this.cachedProjectList) {
+            let apps = new Apps.Apps();
+            let installedJbApps = apps.list
+                .filter(a => /^(\w+) (\d{4}\.\d+)$/.test(a.name));
+
             this.cachedProjectList = [];
             let seenProjectNames: string[] = [];
             let homeDir = GLib.get_home_dir();
             let jbRootDir = Gio.file_new_build_filenamev([homeDir, ".config", "JetBrains"]);
             let children = jbRootDir.enumerate_children("*", Gio.FileQueryInfoFlags.NONE, null);
+
             let file;
             while (!!(file = children.next_file(null))) {
                 if (file.get_file_type() !== Gio.FileType.DIRECTORY)
@@ -40,9 +45,7 @@ export default class JetBrainsActionProvider extends ActionProvider {
                 if (!success)
                     continue;
 
-                let apps = new Apps.Apps();
-                let installedJbApp = apps.list
-                    .filter(a => /^(\w+) (\d{4}\.\d+)$/.test(a.name))
+                let installedJbApp = installedJbApps
                     .find(a => a.name.startsWith(productType + " "));
                 if (!installedJbApp)
                     continue;

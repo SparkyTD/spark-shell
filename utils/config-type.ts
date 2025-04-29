@@ -7,6 +7,12 @@ type WidgetsConfig = {
     datetime: {
         dateTimeFormat: string,
         timeFormat: string,
+    },
+    awb?: {
+        awb: string,
+        apiUrl: string,
+        titleJsonEval: (data: any) => string,
+        tooltipJsonEval: (data: any) => string,
     }
 };
 

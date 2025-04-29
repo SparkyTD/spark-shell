@@ -11,6 +11,7 @@ import {exec} from "astal";
 import {AppConfig} from "../../config";
 import ConnectivityWidget from "./widgets/connectivity/ConnectivityWidget";
 import KeyboardLayoutWidget from "./widgets/keyboard/KeyboardLayoutWidget";
+import AwbTrackingWidget from "./widgets/awb/AwbTrackingWidget";
 
 export default function Bar(monitor: Gdk.Monitor) {
     const {TOP, LEFT, RIGHT} = Astal.WindowAnchor
@@ -45,6 +46,10 @@ export default function Bar(monitor: Gdk.Monitor) {
                         <TitleWidget/>
                     </box>
                     <box>
+                        {!!AppConfig.bar.widgets.awb ? [
+                            <AwbTrackingWidget/>,
+                            <Separator/>
+                        ] : []}
                         <OpenVPNWidget/>
                         <Separator/>
                         <ConnectivityWidget/>

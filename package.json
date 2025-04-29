@@ -5,9 +5,18 @@
         "astal": "/usr/share/astal/gjs",
         "fast-xml-parser": "^5.2.1",
         "math-expression-evaluator": "^2.0.6",
+        "nimma": "^0.7.2",
         "strnum": "^2.0.5",
         "ts-pattern": "^5.7.0",
         "ulid": "^3.0.0",
         "uuid": "^11.1.0"
+    },
+    "devDependencies": {
+        "esbuild": "^0.25.3",
+        "esbuild-sass-plugin": "^3.3.1"
+    },
+    "scripts": {
+        "build": "node esbuild.config.js",
+        "run": "node esbuild.config.js && LD_PRELOAD=/usr/lib/libgtk4-layer-shell.so gjs -m $XDG_RUNTIME_DIR/shell-v2-bundle.js"
     }
 }

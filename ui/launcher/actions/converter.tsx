@@ -390,13 +390,31 @@ export class ConverterActionProvider extends ActionProvider {
             baudRate: {value: 0.125, aliases: ["bd", "baud"], caseSensitive: false, name: "Baud"},
         };
 
+        const temperatureUnits: Record<string, UnitConversion> = {
+            kelvin: {value: {from: k => k, to: k => k}, aliases: ["k"], caseSensitive: false, name: "Kelvin"},
+
+            celsius: {
+                value: {from: k => k - 273.15, to: c => c + 273.15},
+                aliases: ["c"],
+                caseSensitive: false,
+                name: "Celsius"
+            },
+            fahrenheit: {
+                value: {from: k => (k - 273.15) * 9 / 5 + 32, to: f => (f - 32) * 5 / 9 + 273.15},
+                aliases: ["f"],
+                caseSensitive: false,
+                name: "Fahrenheit"
+            },
+        };
+
         const conversionTables = [
             distanceUnits,
             areaUnits,
             volumeUnits,
             massUnits,
             dataUnits,
-            dataTransferSpeedUnits
+            dataTransferSpeedUnits,
+            temperatureUnits
         ];
 
         function tableEntryMatches(table: Record<string, UnitConversion>, key: string, query: string): boolean {
@@ -420,22 +438,41 @@ export class ConverterActionProvider extends ActionProvider {
             let fromRecord = table[fromUnitKey];
             let toRecord = table[toUnitKey];
 
-            const valueInBaseUnit = value * fromRecord.value;
-            return {
-                sourceValue: value,
-                sourceUnit: fromRecord,
-                resultValue: valueInBaseUnit / toRecord.value,
-                resultUnit: toRecord,
-            };
+            if (typeof fromRecord.value === "number" && typeof toRecord.value === "number") {
+                let valueInBaseUnit = value * fromRecord.value;
+                let result = valueInBaseUnit / toRecord.value;
+
+                return {
+                    sourceValue: value,
+                    sourceUnit: fromRecord,
+                    resultValue: result,
+                    resultUnit: toRecord,
+                };
+            } else if (typeof fromRecord.value !== "number" && typeof toRecord.value !== "number") {
+                let valueInBaseUnit = fromRecord.value.to(value);
+                let result = toRecord.value.from(valueInBaseUnit);
+
+                return {
+                    sourceValue: value,
+                    sourceUnit: fromRecord,
+                    resultValue: result,
+                    resultUnit: toRecord,
+                };
+            }
         }
 
         return null;
     }
 }
 
+interface CustomConversion {
+    from: (x: number) => number;
+    to: (x: number) => number;
+}
+
 interface UnitConversion {
     name: string;
-    value: number;
+    value: number | CustomConversion;
     aliases: string[];
     caseSensitive: boolean;
 }
@@ -484,5 +521,11 @@ class ConverterActionResult extends ActionResult {
                 {`${this.result.resultValue} ${this.result.resultUnit.name}`}
             </label>
         ];
+    }
+
+    formatNumber(number: number): string {
+        if (Math.abs(number) > 100)
+            return number.toFixed(3);
+        return number.toFixed(6);
     }
 }

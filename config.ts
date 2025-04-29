@@ -10,7 +10,8 @@ export const AppConfig: Config = {
             datetime: {
                 dateTimeFormat: "%I:%M %p - %a %b %d",
                 timeFormat: "%I:%M:%S %p",
-            }
+            },
+            awb: undefined,
         },
         enableHyprlandBlur: true,
     },
