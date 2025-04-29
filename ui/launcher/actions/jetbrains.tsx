@@ -6,7 +6,7 @@ import {
     OptionalWidget,
     SimpleCommandActionResult
 } from "../Launcher";
-import {execAsync, Gio, GLib} from "astal";
+import {execAsync, Gio, GLib, Variable} from "astal";
 import Apps from "gi://AstalApps"
 import {XMLParser} from "fast-xml-parser";
 
@@ -19,7 +19,8 @@ _promisify(LocalFilePrototype, 'load_contents_async', 'load_contents_finish');
 
 export default class JetBrainsActionProvider extends ActionProvider {
     queryResults(query: string): ActionResult[] | null {
-        if (!query || !(query.toLowerCase().startsWith("jb") || "jetbrains".startsWith(query.toLowerCase()))) {
+        query = query.toLowerCase().trim();
+        if (!query || !(query.startsWith("jb") || query.length >= 3 && "jetbrains".startsWith(query))) {
             return null;
         }
 
@@ -47,7 +48,7 @@ export default class JetBrainsActionProvider extends ActionProvider {
     }
 
     getCustomSortOrder(): number {
-        return 9999;
+        return Number.MAX_SAFE_INTEGER;
     }
 }
 
@@ -161,10 +162,12 @@ class JetBrainsProjectsActionProvider extends AsyncActionProvider {
 
 class JetBrainsActionResult extends ActionResult {
     private readonly entry: JbProjectEntry;
+    private readonly missingFileError: Variable<boolean>
 
     constructor(entry: JbProjectEntry) {
         super();
         this.entry = entry;
+        this.missingFileError = Variable(false);
     }
 
     getTitle(): string {
@@ -181,6 +184,12 @@ class JetBrainsActionResult extends ActionResult {
 
     getAction(): ActionCallback | null {
         return () => {
+            let file = Gio.File.new_for_path(this.entry.projectPath);
+            if (!file.query_exists(null)) {
+                this.missingFileError.set(true);
+                return false;
+            }
+
             execAsync(this.entry.application.executable.replace("%u", `"${this.entry.projectPath}"`))
                 .then(() => {});
             return true;
@@ -195,7 +204,12 @@ class JetBrainsActionResult extends ActionResult {
         return [
             <image file={this.getIconName()!}/>,
             <label cssClasses={["title"]}>{this.getTitle()}</label>,
-            <label cssClasses={["description"]}>{this.getDescription()}</label>
+            <label cssClasses={["description"]} visible={this.missingFileError().as(e => !e)}>
+                {this.getDescription()}
+            </label>,
+            <label cssClasses={["description", "title", "warn"]} visible={this.missingFileError().as(Boolean)}>
+                The specified project path doesn't exist
+            </label>,
         ];
     }
 }

@@ -55,7 +55,7 @@ class ApplicationResult extends ActionResult {
     }
 
     getCustomSortOrder(): number {
-        return -this.application.frequency;
+        return this.application.frequency;
     }
 
     getAction(): ActionCallback | null {
@@ -71,7 +71,7 @@ class ApplicationResult extends ActionResult {
             <label cssClasses={["title"]}>{this.getTitle()}</label>,
             <label cssClasses={["description"]}>
                 {truncateText(this.getDescription(), 80)}
-            </label>
+            </label>,
         ];
     }
 
